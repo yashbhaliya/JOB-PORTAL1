@@ -91,13 +91,13 @@ exports.signup = async (req, res) => {
 exports.verifyEmail = async (req, res) => {
   try {
     const token = req.params.token;
+    console.log('🔵 [VERIFY] Token received:', token.substring(0, 10) + '...');
+    console.log('🔵 [VERIFY] Current time:', new Date().toISOString());
 
-    const user = await User.findOne({
-      verificationToken: token,
-      verificationTokenExpiry: { $gt: Date.now() }
-    });
-
+    const user = await User.findOne({ verificationToken: token });
+    
     if (!user) {
+      console.log('❌ [VERIFY] No user found with this token');
       return res.send(`
         <!DOCTYPE html>
         <html>
@@ -110,18 +110,43 @@ exports.verifyEmail = async (req, res) => {
         </head>
         <body>
           <h1 class="error">Verification Failed</h1>
-          <p>Invalid or expired token</p>
+          <p>Invalid token</p>
           <a href="${process.env.APP_URL || 'http://localhost:5000'}">Go to Home</a>
         </body>
         </html>
       `);
     }
+
+    console.log('✅ [VERIFY] User found:', user.email);
+    console.log('🔵 [VERIFY] Token expiry:', new Date(user.verificationTokenExpiry).toISOString());
+    console.log('🔵 [VERIFY] Time remaining:', Math.floor((user.verificationTokenExpiry - Date.now()) / 1000 / 60), 'minutes');
+
+    if (user.verificationTokenExpiry && user.verificationTokenExpiry < Date.now()) {
+      console.log('❌ [VERIFY] Token expired');
+      return res.send(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <title>Verification Failed</title>
+          <style>
+            body { font-family: Arial; text-align: center; padding: 50px; }
+            .error { color: red; }
+          </style>
+        </head>
+        <body>
+          <h1 class="error">Verification Failed</h1>
+          <p>Token expired. Please signup again.</p>
+          <a href="${process.env.APP_URL || 'http://localhost:5000'}">Go to Home</a>
+        </body>
+        </html>
+      `);
+    }
+
     user.isVerified = true;
     user.verificationToken = undefined;
     user.verificationTokenExpiry = undefined;
-
     await user.save();
-
+    console.log('✅ [VERIFY] User verified successfully');
 
     res.send(`
       <!DOCTYPE html>
@@ -131,17 +156,18 @@ exports.verifyEmail = async (req, res) => {
         <style>
           body { font-family: Arial; text-align: center; padding: 50px; }
           .success { color: green; }
+          .btn { background: #4CAF50; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; display: inline-block; margin-top: 20px; }
         </style>
       </head>
       <body>
-        <h1 class="success">Email Verified Successfully!</h1>
-        <p>You can now login to your account</p>
-        <a href="${process.env.APP_URL || 'http://localhost:5000'}">Go to Home</a>
+        <h1 class="success">✅ Email Verified Successfully!</h1>
+        <p>Your account has been verified. You can now login.</p>
+        <a href="${process.env.APP_URL || 'http://localhost:5000'}" class="btn">Go to Login</a>
       </body>
       </html>
     `);
   } catch (err) {
-    console.error('Verify email error:', err);
+    console.error('❌ [VERIFY] Error:', err);
     res.status(500).json({ error: err.message });
   }
 };
