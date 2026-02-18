@@ -41,7 +41,7 @@ async function saveProfileToMongoDB() {
             educations: user.educations
         });
         
-        const response = await fetch('http://localhost:5000/api/profile', {
+        const response = await fetch(`${API_URL}/api/profile`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -83,7 +83,7 @@ async function saveProfileToMongoDB() {
 async function loadProfileFromMongoDB() {
     try {
         console.log('Loading from MongoDB...');
-        const response = await fetch('http://localhost:5000/api/profile', {
+        const response = await fetch(`${API_URL}/api/profile`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
