@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Test - Job Portal</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; }
+        h1 { color: #333; }
+        .test-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; margin-top: 20px; }
+        .test-card { background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); text-align: center; }
+        .test-card img { max-width: 100%; height: auto; border: 1px solid #ddd; }
+        .test-card p { margin: 10px 0 0; font-size: 14px; color: #666; }
+        .status { display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: 12px; margin-top: 5px; }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <h1>🖼️ Image Loading Test (with /JOB2-main prefix)</h1>
+    <p>Testing all images from /JOB2-main/img/ folder</p>
+    
+    <div class="test-grid">
+        <div class="test-card">
+            <img src="/JOB2-main/img/job-portal-logo.jpg" alt="Logo" onload="markSuccess(this)" onerror="markError(this)">
+            <p>job-portal-logo.jpg</p>
+            <span class="status">Loading...</span>
+        </div>
+        <div class="test-card">
+            <img src="/JOB2-main/img/job-search.jpg" alt="Job Search" onload="markSuccess(this)" onerror="markError(this)">
+            <p>job-search.jpg</p>
+            <span class="status">Loading...</span>
+        </div>
+        <div class="test-card">
+            <img src="/JOB2-main/img/features.png" alt="Features" onload="markSuccess(this)" onerror="markError(this)">
+            <p>features.png</p>
+            <span class="status">Loading...</span>
+        </div>
+        <div class="test-card">
+            <img src="/JOB2-main/img/urgent.png" alt="Urgent" onload="markSuccess(this)" onerror="markError(this)">
+            <p>urgent.png</p>
+            <span class="status">Loading...</span>
+        </div>
+        <div class="test-card">
+            <img src="/JOB2-main/img/unemployment.png" alt="Unemployment" onload="markSuccess(this)" onerror="markError(this)">
+            <p>unemployment.png</p>
+            <span class="status">Loading...</span>
+        </div>
+        <div class="test-card">
+            <img src="/JOB2-main/img/calendar.png" alt="Calendar" onload="markSuccess(this)" onerror="markError(this)">
+            <p>calendar.png</p>
+            <span class="status">Loading...</span>
+        </div>
+        <div class="test-card">
+            <img src="/JOB2-main/img/save-money.png" alt="Save Money" onload="markSuccess(this)" onerror="markError(this)">
+            <p>save-money.png</p>
+            <span class="status">Loading...</span>
+        </div>
+    </div>
+
+    <script>
+        function markSuccess(img) {
+            const status = img.parentElement.querySelector('.status');
+            status.textContent = '✓ Loaded';
+            status.className = 'status success';
+        }
+        function markError(img) {
+            const status = img.parentElement.querySelector('.status');
+            status.textContent = '✗ Failed';
+            status.className = 'status error';
+        }
+    </script>
+</body>
+</html>
