@@ -4,6 +4,14 @@
     {
       "src": "backend/server.js",
       "use": "@vercel/node"
+    },
+    {
+      "src": "public/**",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "img/**",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
@@ -16,12 +24,11 @@
       "dest": "backend/server.js"
     },
     {
-      "src": "/(.*\\.css)",
-      "dest": "/public/$1"
-    },
-    {
-      "src": "/(.*\\.js)",
-      "dest": "/public/$1"
+      "src": "/(.*\\.css|.*\\.js)",
+      "dest": "/public/$1",
+      "headers": {
+        "Content-Type": "text/css; charset=utf-8"
+      }
     },
     {
       "src": "/(.*\\.html)",
@@ -32,11 +39,15 @@
       "dest": "/img/$1"
     },
     {
-      "src": "/JOB2-main/(.*)",
-      "dest": "/$1"
+      "src": "/JOB2-main/public/(.*)",
+      "dest": "/public/$1"
     },
     {
-      "src": "/(.*)",
+      "src": "/JOB2-main/img/(.*)",
+      "dest": "/img/$1"
+    },
+    {
+      "src": "/",
       "dest": "backend/server.js"
     }
   ]
