@@ -145,47 +145,75 @@ exports.verifyEmail = async (req, res) => {
     await user.save();
     console.log('✅ [VERIFY] User verified successfully');
 
-    res.redirect('/verify-success.html');
+    res.send(`
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Email Verified - Job Portal</title>
+        <style>
+          * { margin: 0; padding: 0; box-sizing: border-box; }
+          body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          .container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+          }
+          .success-icon {
+            width: 80px;
+            height: 80px;
+            background: #4CAF50;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 50px;
+            color: white;
+          }
+          h1 { color: #4CAF50; margin-bottom: 15px; font-size: 28px; }
+          p { color: #666; margin-bottom: 30px; font-size: 16px; line-height: 1.6; }
+          .btn {
+            background: #4CAF50;
+            color: white;
+            padding: 15px 40px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            font-weight: bold;
+            font-size: 16px;
+            transition: background 0.3s;
+          }
+          .btn:hover { background: #45a049; }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="success-icon">✓</div>
+          <h1>Email Verified Successfully!</h1>
+          <p>Your account has been verified. You can now login and start exploring job opportunities.</p>
+          <a href="/home.html" class="btn">Go to Home</a>
+        </div>
+      </body>
+      </html>
+    `);
   } catch (err) {
     console.error('❌ [VERIFY] Error:', err);
     res.status(500).json({ error: err.message });
   }
 };
-
-// exports.signup = async (req, res) => {
-//   try {
-//     const { name, email, password } = req.body;
-
-//     const token = crypto.randomBytes(32).toString("hex");
-
-//     const user = new User({
-//       name,
-//       email,
-//       password,
-//       verificationToken: token,
-//       verificationTokenExpiry: Date.now() + 24 * 60 * 60 * 1000
-//     });
-
-//     await user.save();
-
-//     const verifyURL = `${process.env.BASE_URL}/api/auth/verify-email/${token}`;
-
-//     await transporter.sendMail({
-//       to: email,
-//       subject: "Verify Your Email",
-//       html: `
-//         <h2>Email Verification</h2>
-//         <a href="${verifyURL}">Click here to verify</a>
-//       `
-//     });
-
-//     res.status(201).json({ message: "Verification email sent" });
-
-//   } catch (error) {
-//     res.status(400).json({ message: "Signup failed" });
-//   }
-// };
-
 
 exports.login = async (req, res) => {
   try {
