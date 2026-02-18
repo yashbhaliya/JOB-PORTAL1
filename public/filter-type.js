@@ -173,7 +173,7 @@ function updatePageTitle(type) {
 
 async function loadJobs() {
     try {
-        const response = await fetch('http://localhost:5000/api/jobs');
+        const response = await fetch(`${API_URL}/api/jobs`);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
