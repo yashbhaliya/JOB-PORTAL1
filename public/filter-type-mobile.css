@@ -21,10 +21,8 @@
     .filters-sidebar.active {
         bottom: 0 !important;
     }
-}
-
-@media (max-width: 900px) {
-    .filter-actions {
+    
+    .filters-sidebar.active .filter-actions {
         position: fixed !important;
         bottom: 0 !important;
         left: 0 !important;
@@ -39,8 +37,8 @@
         box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1) !important;
     }
 
-    .clear-filters,
-    .apply-filters {
+    .filters-sidebar.active .clear-filters,
+    .filters-sidebar.active .apply-filters {
         flex: 1 !important;
         padding: 14px !important;
         font-size: 14px !important;
