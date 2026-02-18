@@ -155,7 +155,7 @@ function displayJobDetails(job) {
     categoryElement.className = 'clickable-category';
     categoryElement.onclick = function() {
         const categoryParam = getCategoryParam(job.category);
-        window.location.href = `http://127.0.0.1:5500/public/filter.html?category=${categoryParam}`;
+        window.location.href = `filter-category.html?category=${categoryParam}`;
     };
     
     const salary = job.minSalary && job.maxSalary ? 
@@ -179,7 +179,7 @@ function displayJobDetails(job) {
         const types = job.employmentTypes.map(type => {
             const typeParam = getEmploymentTypeParam(type);
             if (typeParam) {
-                return `<span class="clickable-employment-type" onclick="window.location.href='http://127.0.0.1:5500/public/filter.html?type=${typeParam}'">${type}</span>`;
+                return `<span class="clickable-employment-type" onclick="window.location.href='filter-type.html?type=${typeParam}'">${type}</span>`;
             }
             return type;
         });
