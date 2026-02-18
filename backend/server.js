@@ -39,6 +39,25 @@ app.use('/api/auth', authRoutes);
 app.use('/api', profileRoutes);
 
 /* ======================
+   TEST EMAIL ENDPOINT
+====================== */
+const transporter = require('./config/mail');
+
+app.get('/api/test-email', async (req, res) => {
+  try {
+    const info = await transporter.sendMail({
+      from: `"Job Portal" <${process.env.MAIL_USER}>`,
+      to: process.env.MAIL_USER,
+      subject: 'Test Email - Job Portal',
+      html: '<h2>Email Configuration Working!</h2><p>Your email setup is correct.</p>'
+    });
+    res.json({ success: true, message: 'Email sent successfully!', messageId: info.messageId });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+/* ======================
    JOB ROUTES (UNCHANGED)
 ====================== */
 
