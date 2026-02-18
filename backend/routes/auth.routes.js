@@ -3,7 +3,7 @@ const router = express.Router();
 const auth = require('../controllers/auth.controller');
 
 router.post('/signup', auth.signup);
-router.get('/verify-email/:token', auth.verifyEmail);
+router.get('/verify/:token', auth.verifyEmail);
 
 router.post('/login', auth.login);
 router.post('/forgot-password', auth.forgotPassword);
