@@ -38,6 +38,9 @@ app.use('/img', express.static(path.join(__dirname, '..', 'img')));
 app.use('/api/auth', authRoutes);
 app.use('/api', profileRoutes);
 
+// Direct verify route for email links
+app.get('/verify/:token', require('./controllers/auth.controller').verifyEmail);
+
 
 /* ======================
    JOB ROUTES (UNCHANGED)

@@ -111,7 +111,7 @@ exports.verifyEmail = async (req, res) => {
         <body>
           <h1 class="error">❌ Verification Failed</h1>
           <p>Invalid verification token</p>
-          <a href="/JOB2-main/public/home.html" class="btn">Go to Home</a>
+          <a href="/home.html" class="btn">Go to Home</a>
         </body>
         </html>
       `);
@@ -133,7 +133,7 @@ exports.verifyEmail = async (req, res) => {
         <body>
           <h1 class="error">❌ Verification Failed</h1>
           <p>Token expired. Please signup again.</p>
-          <a href="/JOB2-main/public/home.html" class="btn">Go to Home</a>
+          <a href="/home.html" class="btn">Go to Home</a>
         </body>
         </html>
       `);
@@ -145,7 +145,7 @@ exports.verifyEmail = async (req, res) => {
     await user.save();
     console.log('✅ [VERIFY] User verified successfully');
 
-    res.redirect('/JOB2-main/public/verify-success.html');
+    res.redirect('/verify-success.html');
   } catch (err) {
     console.error('❌ [VERIFY] Error:', err);
     res.status(500).json({ error: err.message });
