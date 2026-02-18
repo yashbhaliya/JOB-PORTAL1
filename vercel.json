@@ -4,34 +4,36 @@
     {
       "src": "backend/server.js",
       "use": "@vercel/node"
-    },
-    {
-      "src": "public/**",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "img/**",
-      "use": "@vercel/static"
     }
   ],
   "routes": [
-    {
-      "src": "/verify/(.*)",
-      "dest": "backend/server.js"
-    },
     {
       "src": "/api/(.*)",
       "dest": "backend/server.js"
     },
     {
-      "src": "/(.*\\.(css|js|html|png|jpg|jpeg|gif|svg|ico))",
-      "headers": {
-        "Cache-Control": "public, max-age=0, must-revalidate"
-      }
+      "src": "/verify/(.*)",
+      "dest": "backend/server.js"
+    },
+    {
+      "src": "/(.*\\.css)",
+      "dest": "/public/$1"
+    },
+    {
+      "src": "/(.*\\.js)",
+      "dest": "/public/$1"
+    },
+    {
+      "src": "/(.*\\.html)",
+      "dest": "/public/$1"
     },
     {
       "src": "/img/(.*)",
       "dest": "/img/$1"
+    },
+    {
+      "src": "/JOB2-main/(.*)",
+      "dest": "/$1"
     },
     {
       "src": "/(.*)",
