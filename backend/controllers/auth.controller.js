@@ -63,7 +63,7 @@ exports.signup = async (req, res) => {
     });
 
     const timeoutPromise = new Promise((_, reject) => 
-      setTimeout(() => reject(new Error('Email timeout')), 10000)
+      setTimeout(() => reject(new Error('Email timeout')), 30000)
     );
 
     try {
