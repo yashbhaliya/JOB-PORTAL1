@@ -24,11 +24,12 @@
       "dest": "backend/server.js"
     },
     {
-      "src": "/(.*\\.css|.*\\.js)",
-      "dest": "/public/$1",
-      "headers": {
-        "Content-Type": "text/css; charset=utf-8"
-      }
+      "src": "/(.*\\.css)",
+      "dest": "/public/$1"
+    },
+    {
+      "src": "/(.*\\.js)",
+      "dest": "/public/$1"
     },
     {
       "src": "/(.*\\.html)",
@@ -48,6 +49,10 @@
     },
     {
       "src": "/",
+      "dest": "backend/server.js"
+    },
+    {
+      "src": "/(.*)",
       "dest": "backend/server.js"
     }
   ]
