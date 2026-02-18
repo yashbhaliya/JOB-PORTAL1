@@ -5,23 +5,27 @@ const jwt = require('jsonwebtoken');
 const transporter = require('../config/mail');
 
 exports.signup = async (req, res) => {
+  console.log('🔵 [SIGNUP] Step 1: Request received');
   try {
     const { name, email, password } = req.body;
-
-    console.log('Signup attempt:', { name, email });
+    console.log('🔵 [SIGNUP] Step 2: Data extracted:', { name, email, passwordLength: password?.length });
 
     if (!name || !email || !password) {
+      console.log('❌ [SIGNUP] Step 3: Validation failed - missing fields');
       return res.status(400).json({ error: 'All fields are required' });
     }
+    console.log('✅ [SIGNUP] Step 3: Validation passed');
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      console.log('Email already exists:', email);
+      console.log('❌ [SIGNUP] Step 4: Email already exists:', email);
       return res.status(400).json({ error: 'Email already registered' });
     }
+    console.log('✅ [SIGNUP] Step 4: Email is unique');
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const token = crypto.randomBytes(32).toString('hex');
+    console.log('✅ [SIGNUP] Step 5: Password hashed, token generated:', token.substring(0, 10) + '...');
 
     const user = await User.create({
       name,
@@ -31,12 +35,19 @@ exports.signup = async (req, res) => {
       verificationTokenExpiry: Date.now() + 24 * 60 * 60 * 1000,
       isVerified: false
     });
-
-    console.log('User created:', user._id);
+    console.log('✅ [SIGNUP] Step 6: User created in DB:', user._id);
 
     const verifyLink = `${process.env.APP_URL || 'http://localhost:5000'}/api/auth/verify-email/${token}`;
+    console.log('🔵 [SIGNUP] Step 7: Verification link created:', verifyLink);
 
-    // Send email with timeout
+    console.log('📧 [EMAIL] Step 8: Attempting to send email...');
+    console.log('📧 [EMAIL] Config:', {
+      host: process.env.MAIL_HOST,
+      port: process.env.MAIL_PORT,
+      user: process.env.MAIL_USER,
+      pass: process.env.MAIL_PASS ? '***' + process.env.MAIL_PASS.slice(-4) : 'NOT SET'
+    });
+
     const emailPromise = transporter.sendMail({
       from: `"Job Portal" <${process.env.MAIL_USER}>`,
       to: email,
@@ -56,19 +67,20 @@ exports.signup = async (req, res) => {
     );
 
     try {
+      console.log('📧 [EMAIL] Step 9: Sending email to:', email);
       await Promise.race([emailPromise, timeoutPromise]);
-      console.log('Verification email sent to:', email);
+      console.log('✅ [EMAIL] Step 10: Email sent successfully to:', email);
       res.json({ message: 'Verification email sent. Please check your inbox.' });
     } catch (mailError) {
-      console.error('Email sending failed:', mailError.message);
-      // Don't delete user, just mark as unverified
+      console.error('❌ [EMAIL] Step 10: Email sending failed:', mailError.message);
+      console.error('❌ [EMAIL] Full error:', mailError);
       res.json({ 
         message: 'Account created! Email verification failed. Please contact support to verify your account.',
         warning: 'Email service unavailable'
       });
     }
   } catch (err) {
-    console.error('Signup error:', err);
+    console.error('❌ [SIGNUP] Fatal error:', err);
     if (err.code === 11000) {
       return res.status(400).json({ error: 'Email already registered' });
     }
