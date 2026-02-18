@@ -5,19 +5,22 @@ exports.updateProfile = async (req, res) => {
     const userId = req.user.id;
     const updateData = req.body;
     
-    console.log('Update request:', { userId, updateData });
+    console.log('=== UPDATE PROFILE ===' );
+    console.log('User ID:', userId);
+    console.log('Update Data:', JSON.stringify(updateData, null, 2));
 
     const user = await User.findByIdAndUpdate(
       userId,
-      { $set: updateData },
-      { new: true, runValidators: true }
+      updateData,
+      { new: true, runValidators: false }
     ).select('-password -verificationToken -resetPasswordToken');
 
     if (!user) {
+      console.log('User not found');
       return res.status(404).json({ message: 'User not found' });
     }
     
-    console.log('Updated user:', user);
+    console.log('Updated user:', JSON.stringify(user, null, 2));
     res.json({ message: 'Profile updated successfully', user });
   } catch (error) {
     console.error('Update profile error:', error);
