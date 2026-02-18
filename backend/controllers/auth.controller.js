@@ -146,68 +146,287 @@ exports.verifyEmail = async (req, res) => {
     console.log('✅ [VERIFY] User verified successfully');
 
     res.send(`
-      <!DOCTYPE html>
-      <html lang="en">
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Email Verified - Job Portal</title>
-        <style>
-          * { margin: 0; padding: 0; box-sizing: border-box; }
-          body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-          }
-          .container {
-            background: white;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-            text-align: center;
-            max-width: 500px;
-            width: 90%;
-          }
-          .success-icon {
-            width: 80px;
-            height: 80px;
-            background: #4CAF50;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 50px;
-            color: white;
-          }
-          h1 { color: #4CAF50; margin-bottom: 15px; font-size: 28px; }
-          p { color: #666; margin-bottom: 30px; font-size: 16px; line-height: 1.6; }
-          .btn {
-            background: #4CAF50;
-            color: white;
-            padding: 15px 40px;
-            text-decoration: none;
-            border-radius: 5px;
-            display: inline-block;
-            font-weight: bold;
-            font-size: 16px;
-            transition: background 0.3s;
-          }
-          .btn:hover { background: #45a049; }
-        </style>
-      </head>
-      <body>
-        <div class="container">
-          <div class="success-icon">✓</div>
-          <h1>Email Verified Successfully!</h1>
-          <p>Your account has been verified. You can now login and start exploring job opportunities.</p>
-          <a href="/home.html" class="btn">Go to Home</a>
+     <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Email Verified - Job Portal</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, sans-serif;
+    }
+    body {
+      overflow: hidden;
+    }
+    /* Hero Section */
+    .hero {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 60px 22px;
+      gap: 60px;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+    .hero .img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+    .hero .img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: blur(3px);
+    }
+    .hero-left {
+      flex: 1;
+      position: relative;
+      z-index: 2;
+    }
+    .hero-left h1 {
+      font-size: 48px;
+      font-weight: 700;
+      color: white;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    .hero-left p {
+      font-size: 18px;
+      color: #FFFFFF;
+      line-height: 1.6;
+      max-width: 500px;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+    }
+    .hero-right {
+      flex: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 400px;
+      z-index: 2;
+    }
+    .orbit {
+      width: 300px;
+      height: 300px;
+      border: 2px dashed black;
+      border-radius: 50%;
+      position: relative;
+      animation: rotate 20s linear infinite;
+    }
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    .job-tag {
+      position: absolute;
+      background: black;
+      color: white;
+      padding: 12px 16px;
+      border-radius: 50px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 160px;
+      animation: float 3s ease-in-out infinite;
+    }
+    .job-tag .icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+    .job-tag .purple { background: #8b5cf6; }
+    .job-tag .yellow { background: #fbbf24; }
+    .job-tag .violet { background: #a855f7; }
+    .job-tag .blue { background: #3b82f6; }
+    .job-tag strong {
+      font-size: 14px;
+      color: white;
+      display: block;
+    }
+    .job-tag small {
+      font-size: 12px;
+      color: #d1d5db;
+    }
+    .tag1 { top: 40px; right:150px; animation-delay: 0s; }
+    .tag2 { top: 100px; left:100px; animation-delay: 0.5s; }
+    .tag3 { bottom: 100px; right: 80px; animation-delay: 1s; }
+    .tag4 { bottom: 40px; left: 150px; animation-delay: 1.5s; }
+    
+    /* Verify Overlay */
+    .verify-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    .verify-container {
+      background: white;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+      text-align: center;
+      max-width: 500px;
+      width: 90%;
+      animation: slideIn 0.5s ease;
+    }
+    @keyframes slideIn {
+      from { transform: translateY(-50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .success-icon {
+      width: 80px;
+      height: 80px;
+      background: #4CAF50;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 50px;
+      color: white;
+    }
+    .verify-container h1 {
+      color: #4CAF50;
+      margin-bottom: 15px;
+      font-size: 28px;
+    }
+    .verify-container p {
+      color: #666;
+      margin-bottom: 30px;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    .verify-btn {
+      background: #4CAF50;
+      color: white;
+      padding: 15px 40px;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .verify-btn:hover {
+      background: #45a049;
+    }
+    
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .hero {
+        flex-direction: column;
+        padding: 30px 15px;
+      }
+      .hero-left {
+        text-align: center;
+      }
+      .hero-left h1 {
+        font-size: 32px;
+      }
+      .hero-left p {
+        font-size: 16px;
+        margin: 0 auto;
+      }
+      .hero-right {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <section class="hero">
+    <div class="img">
+      <img src="/JOB2-main/img/job-search.jpg" alt="">
+    </div>
+    <div class="hero-left">
+      <h1>Smarter Careers<br>Start in Tech</h1>
+      <p>
+        Smarter careers start in tech where innovation
+        meets opportunity. Find roles that grow with your
+        skills and ambition.
+      </p>
+    </div>
+
+    <div class="hero-right">
+      <div class="orbit"></div>
+
+      <div class="job-tag tag1">
+        <span class="icon purple">💉</span>
+        <div>
+          <strong>Data Analyst</strong>
+          <small>Nairobi</small>
         </div>
-      </body>
-      </html>
+      </div>
+
+      <div class="job-tag tag2">
+        <span class="icon yellow">🛡️</span>
+        <div>
+          <strong>QA Engineer</strong>
+          <small>Basel</small>
+        </div>
+      </div>
+
+      <div class="job-tag tag3">
+        <span class="icon violet">✔</span>
+        <div>
+          <strong>Cyber Security</strong>
+          <small>Aiken</small>
+        </div>
+      </div>
+
+      <div class="job-tag tag4">
+        <span class="icon blue">🎓</span>
+        <div>
+          <strong>UI / UX Designer</strong>
+          <small>Vertigo</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="verify-overlay" id="verifyOverlay">
+    <div class="verify-container">
+      <div class="success-icon">✓</div>
+      <h1>Email Verified Successfully!</h1>
+      <p>Your account has been verified. You can now login and start exploring job opportunities.</p>
+      <button class="verify-btn" onclick="closeVerifyModal()">Go to Home</button>
+    </div>
+  </div>
+
+  <script>
+    function closeVerifyModal() {
+      window.location.href = '/home.html';
+    }
+  </script>
+</body>
+</html>
     `);
   } catch (err) {
     console.error('❌ [VERIFY] Error:', err);
