@@ -21,3 +21,24 @@
         bottom: 0 !important;
     }
 }
+
+@media (max-width: 900px) {
+    .filter-actions {
+        position: sticky !important;
+        bottom: 0 !important;
+        background: white !important;
+        padding: 15px 0 !important;
+        margin-top: 20px !important;
+        border-top: 2px solid #e5e7eb !important;
+        display: flex !important;
+        gap: 10px !important;
+    }
+
+    .clear-filters,
+    .apply-filters {
+        flex: 1 !important;
+        padding: 14px !important;
+        font-size: 14px !important;
+        margin-top: 0 !important;
+    }
+}
