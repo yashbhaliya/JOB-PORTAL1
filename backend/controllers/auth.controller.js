@@ -36,26 +36,36 @@ exports.signup = async (req, res) => {
 
     const verifyLink = `${process.env.APP_URL || 'http://localhost:5000'}/api/auth/verify-email/${token}`;
 
+    // Send email with timeout
+    const emailPromise = transporter.sendMail({
+      from: `"Job Portal" <${process.env.MAIL_USER}>`,
+      to: email,
+      subject: 'Verify Your Email - Job Portal',
+      html: `
+        <h2>Welcome to Job Portal!</h2>
+        <p>Hi ${name},</p>
+        <p>Please verify your email by clicking the link below:</p>
+        <a href="${verifyLink}" style="background:#4CAF50;color:white;padding:10px 20px;text-decoration:none;border-radius:5px;display:inline-block;">Verify Email</a>
+        <p>Or copy this link: ${verifyLink}</p>
+        <p>This link expires in 24 hours.</p>
+      `
+    });
+
+    const timeoutPromise = new Promise((_, reject) => 
+      setTimeout(() => reject(new Error('Email timeout')), 10000)
+    );
+
     try {
-      await transporter.sendMail({
-        from: `"Job Portal" <${process.env.MAIL_USER}>`,
-        to: email,
-        subject: 'Verify Your Email - Job Portal',
-        html: `
-          <h2>Welcome to Job Portal!</h2>
-          <p>Hi ${name},</p>
-          <p>Please verify your email by clicking the link below:</p>
-          <a href="${verifyLink}" style="background:#4CAF50;color:white;padding:10px 20px;text-decoration:none;border-radius:5px;display:inline-block;">Verify Email</a>
-          <p>Or copy this link: ${verifyLink}</p>
-          <p>This link expires in 24 hours.</p>
-        `
-      });
+      await Promise.race([emailPromise, timeoutPromise]);
       console.log('Verification email sent to:', email);
       res.json({ message: 'Verification email sent. Please check your inbox.' });
     } catch (mailError) {
-      console.error('Email sending failed:', mailError);
-      await User.findByIdAndDelete(user._id);
-      return res.status(500).json({ error: 'Failed to send verification email. Please check your email configuration.' });
+      console.error('Email sending failed:', mailError.message);
+      // Don't delete user, just mark as unverified
+      res.json({ 
+        message: 'Account created! Email verification failed. Please contact support to verify your account.',
+        warning: 'Email service unavailable'
+      });
     }
   } catch (err) {
     console.error('Signup error:', err);
