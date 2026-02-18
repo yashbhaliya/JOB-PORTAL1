@@ -12,7 +12,10 @@
         box-shadow: 0 -5px 30px rgba(0, 0, 0, 0.3) !important;
         transition: bottom 0.3s ease !important;
         overflow-y: auto !important;
-        display: block !important;
+        display: flex !important;
+        flex-direction: column !important;
+        padding: 20px 15px 80px 15px !important;
+        top: auto !important;
     }
 
     .filters-sidebar.active {
@@ -22,14 +25,18 @@
 
 @media (max-width: 900px) {
     .filter-actions {
-        position: sticky !important;
+        position: fixed !important;
         bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
         background: white !important;
-        padding: 15px 0 !important;
-        margin-top: 20px !important;
+        padding: 15px !important;
+        margin: 0 !important;
         border-top: 2px solid #e5e7eb !important;
         display: flex !important;
         gap: 10px !important;
+        z-index: 2001 !important;
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1) !important;
     }
 
     .clear-filters,
