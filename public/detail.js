@@ -87,7 +87,7 @@ function initializeMobileMenu() {
 // Fetch job details from server
 async function loadJobDetails(id) {
     try {
-        const response = await fetch(`http://localhost:5000/api/jobs/${id}`);
+        const response = await fetch(`${API_URL}/api/jobs/${id}`);
         
         if (!response.ok) {
             if (response.status === 404) {
