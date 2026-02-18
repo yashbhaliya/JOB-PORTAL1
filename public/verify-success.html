@@ -4,28 +4,33 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Email Verified - Job Portal</title>
+  <link rel="stylesheet" href="home.css">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      min-height: 100vh;
+    .verify-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
       display: flex;
       align-items: center;
       justify-content: center;
+      z-index: 9999;
     }
-    .container {
+    .verify-container {
       background: white;
       padding: 40px;
       border-radius: 10px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
       text-align: center;
       max-width: 500px;
       width: 90%;
+      animation: slideIn 0.5s ease;
+    }
+    @keyframes slideIn {
+      from { transform: translateY(-50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
     .success-icon {
       width: 80px;
@@ -39,39 +44,98 @@
       font-size: 50px;
       color: white;
     }
-    h1 {
+    .verify-container h1 {
       color: #4CAF50;
       margin-bottom: 15px;
       font-size: 28px;
     }
-    p {
+    .verify-container p {
       color: #666;
       margin-bottom: 30px;
       font-size: 16px;
       line-height: 1.6;
     }
-    .btn {
+    .verify-btn {
       background: #4CAF50;
       color: white;
       padding: 15px 40px;
-      text-decoration: none;
+      border: none;
       border-radius: 5px;
-      display: inline-block;
       font-weight: bold;
       font-size: 16px;
+      cursor: pointer;
       transition: background 0.3s;
     }
-    .btn:hover {
+    .verify-btn:hover {
       background: #45a049;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="success-icon">✓</div>
-    <h1>Email Verified Successfully!</h1>
-    <p>Your account has been verified. You can now login and start exploring job opportunities.</p>
-    <a href="/home.html" class="btn">Go to Home</a>
+  <div class="verify-overlay" id="verifyOverlay">
+    <div class="verify-container">
+      <div class="success-icon">✓</div>
+      <h1>Email Verified Successfully!</h1>
+      <p>Your account has been verified. You can now login and start exploring job opportunities.</p>
+      <button class="verify-btn" onclick="closeVerifyModal()">Go to Home</button>
+    </div>
   </div>
+
+  <section class="hero">
+    <div class="img">
+      <img src="/JOB2-main/img/job-search.jpg" alt="">
+    </div>
+    <div class="hero-left">
+      <h1>Smarter Careers<br>Start in Tech</h1>
+      <p>
+        Smarter careers start in tech where innovation
+        meets opportunity. Find roles that grow with your
+        skills and ambition.
+      </p>
+    </div>
+
+    <div class="hero-right">
+      <div class="orbit"></div>
+
+      <div class="job-tag tag1">
+        <span class="icon purple">💉</span>
+        <div>
+          <strong>Data Analyst</strong>
+          <small>Nairobi</small>
+        </div>
+      </div>
+
+      <div class="job-tag tag2">
+        <span class="icon yellow">🛡️</span>
+        <div>
+          <strong>QA Engineer</strong>
+          <small>Basel</small>
+        </div>
+      </div>
+
+      <div class="job-tag tag3">
+        <span class="icon violet">✔</span>
+        <div>
+          <strong>Cyber Security</strong>
+          <small>Aiken</small>
+        </div>
+      </div>
+
+      <div class="job-tag tag4">
+        <span class="icon blue">🎓</span>
+        <div>
+          <strong>UI / UX Designer</strong>
+          <small>Vertigo</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    function closeVerifyModal() {
+      document.getElementById('verifyOverlay').style.display = 'none';
+      window.location.href = '/home.html';
+    }
+  </script>
 </body>
 </html>
