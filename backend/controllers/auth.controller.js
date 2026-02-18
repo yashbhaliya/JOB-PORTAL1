@@ -37,8 +37,8 @@ exports.signup = async (req, res) => {
     });
     console.log('✅ [SIGNUP] Step 6: User created in DB:', user._id);
 
-    const verifyLink = `${process.env.APP_URL || 'http://localhost:5000'}/api/auth/verify-email/${token}`;
-    console.log('🔵 [SIGNUP] Step 7: Verification link created:', verifyLink);
+    const verificationLink = `${process.env.APP_URL}/verify/${token}`;
+    console.log('🔵 [SIGNUP] Step 7: Verification link created:', verificationLink);
 
     console.log('📧 [EMAIL] Step 8: Attempting to send email...');
     console.log('📧 [EMAIL] Config:', {
@@ -51,14 +51,14 @@ exports.signup = async (req, res) => {
     const emailPromise = transporter.sendMail({
       from: `"Job Portal" <${process.env.MAIL_USER}>`,
       to: email,
-      subject: 'Verify Your Email - Job Portal',
+      subject: "Verify Your Email",
       html: `
-        <h2>Welcome to Job Portal!</h2>
-        <p>Hi ${name},</p>
-        <p>Please verify your email by clicking the link below:</p>
-        <a href="${verifyLink}" style="background:#4CAF50;color:white;padding:10px 20px;text-decoration:none;border-radius:5px;display:inline-block;">Verify Email</a>
-        <p>Or copy this link: ${verifyLink}</p>
-        <p>This link expires in 24 hours.</p>
+        <h2>Email Verification</h2>
+        <p>Click below to verify your account:</p>
+        <a href="${verificationLink}" 
+           style="padding:10px 20px;background:#4f46e5;color:white;text-decoration:none;">
+           Verify Account
+        </a>
       `
     });
 
