@@ -186,7 +186,7 @@ exports.verifyEmail = async (req, res) => {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      filter: blur(3px);
+      filter: blur(8px);
     }
     .hero-left {
       flex: 1;
