@@ -7,6 +7,28 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize mobile menu
     initializeMobileMenu();
     
+    // Add search functionality
+    const headerSearchInput = document.getElementById('searchInput');
+    const headerSearchBtn = document.querySelector('.search-btn');
+    
+    if (headerSearchInput && headerSearchBtn) {
+        headerSearchBtn.addEventListener('click', function() {
+            const query = headerSearchInput.value.trim();
+            if (query) {
+                window.location.href = `search.html?search=${encodeURIComponent(query)}`;
+            }
+        });
+        
+        headerSearchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const query = headerSearchInput.value.trim();
+                if (query) {
+                    window.location.href = `search.html?search=${encodeURIComponent(query)}`;
+                }
+            }
+        });
+    }
+    
     if (jobId) {
         loadJobDetails(jobId);
     } else {
