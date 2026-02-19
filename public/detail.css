@@ -552,7 +552,6 @@
 @media (max-width: 768px) {
     .container {
         padding: 20px;
-        /* margin: 20px; */
     }
     
     .job-header {
@@ -561,8 +560,29 @@
     }
     
     .company-info {
-        flex-direction: column;
-        text-align: center;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .company-logo {
+        width: 60px;
+        height: 60px;
+        flex-shrink: 0;
+    }
+    
+    .company-logo.shimmer {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .apply-btn {
+        width: 100%;
+        margin-top: 15px;
+    }
+    
+    .shimmer-btn {
+        width: 100%;
     }
     
     .job-info {
