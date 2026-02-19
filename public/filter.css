@@ -878,6 +878,12 @@
     .job-card {
         padding: 20px 15px;
     }
+    
+    .job-header h3 {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
 
     .filter-group {
         margin-bottom: 18px;

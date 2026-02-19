@@ -58,6 +58,12 @@
     .main-search-btn {
         width: 100%;
     }
+    
+    .job-header h3 {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
 }
 /* ===== SEARCH KEYWORD DISPLAY ===== */
 .search-keyword {
