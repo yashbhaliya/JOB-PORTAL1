@@ -1,7 +1,6 @@
 // API Configuration
-const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-    ? 'http://localhost:5000'
-    : window.location.origin;
+// Always use production URL (Vercel deployment)
+const API_URL = 'https://job-portal-1-iota.vercel.app';
 
 console.log('API URL:', API_URL);
 console.log('Hostname:', window.location.hostname);
