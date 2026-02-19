@@ -117,9 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function performHeaderSearch() {
         const query = headerSearchInput ? headerSearchInput.value.trim() : '';
         if (query) {
-            searchJobs(query);
-        } else {
-            displayJobs(allJobs);
+            window.location.href = `search.html?search=${encodeURIComponent(query)}`;
         }
     }
     
