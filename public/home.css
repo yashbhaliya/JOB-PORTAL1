@@ -1228,7 +1228,7 @@
 .job-card .badge {
     position: absolute;
     top: 16px;
-    right: 16px;
+    right: 40px;
     padding: 4px 8px;
     border-radius: 12px;
     font-size: 14px;
@@ -1585,13 +1585,15 @@ i
     }
 
     .filter-buttons {
-        flex-direction: column;
-        width: 100%;
+        flex-direction: row;
+        gap: 8px;
     }
 
     .filter-btn {
-        width: 100%;
+        flex: 1;
         min-width: auto;
+        padding: 10px 16px;
+        font-size: 12px;
     }
 
     .main {
