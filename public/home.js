@@ -103,6 +103,9 @@ let currentFilteredJobs = [];
 
 // Fetch and display jobs from MongoDB
 async function loadJobs() {
+    // Show shimmer loading
+    showShimmerLoading();
+    
     try {
         const response = await fetch(`${API_URL}/api/jobs`, {
             method: 'GET',
@@ -125,6 +128,26 @@ async function loadJobs() {
         console.error('Error loading jobs:', error);
         document.getElementById('jobsContainer').innerHTML = '<p>Unable to load jobs. Please make sure the server is running on port 5000.</p>';
     }
+}
+
+function showShimmerLoading() {
+    const container = document.getElementById('jobsContainer');
+    const shimmerCards = Array(6).fill(0).map(() => `
+        <div class="shimmer-card">
+            <div class="shimmer-header">
+                <div class="shimmer-logo"></div>
+                <div>
+                    <div class="shimmer-title"></div>
+                    <div class="shimmer-company"></div>
+                </div>
+            </div>
+            <div class="shimmer-line"></div>
+            <div class="shimmer-line"></div>
+            <div class="shimmer-line"></div>
+            <div class="shimmer-line"></div>
+        </div>
+    `).join('');
+    container.innerHTML = shimmerCards;
 }
 
 function displayJobs(jobs) {

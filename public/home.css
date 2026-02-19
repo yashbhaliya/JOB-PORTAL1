@@ -2100,3 +2100,71 @@ i
 @keyframes spinner {
     to { transform: rotate(360deg); }
 }
+
+
+/* ===== SHIMMER LOADING EFFECT ===== */
+.shimmer-card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    position: relative;
+    overflow: hidden;
+}
+
+.shimmer-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+.shimmer-header {
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.shimmer-logo {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    background: #e5e7eb;
+}
+
+.shimmer-title {
+    height: 20px;
+    background: #e5e7eb;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    width: 70%;
+}
+
+.shimmer-company {
+    height: 14px;
+    background: #f3f4f6;
+    border-radius: 4px;
+    width: 50%;
+}
+
+.shimmer-line {
+    height: 14px;
+    background: #f3f4f6;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.shimmer-line:nth-child(1) { width: 100%; }
+.shimmer-line:nth-child(2) { width: 85%; }
+.shimmer-line:nth-child(3) { width: 75%; }
+.shimmer-line:nth-child(4) { width: 90%; }
