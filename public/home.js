@@ -103,6 +103,8 @@ let currentFilteredJobs = [];
 
 // Fetch and display jobs from MongoDB
 async function loadJobs() {
+    const startTime = Date.now();
+    
     try {
         const response = await fetch(`${API_URL}/api/jobs`, {
             method: 'GET',
@@ -119,7 +121,13 @@ async function loadJobs() {
         const today = new Date();
         today.setHours(0, 0, 0, 0);
         allJobs = allJobs.filter(job => !job.expiryDate || new Date(job.expiryDate) >= today);
-        displayJobs(allJobs);
+        
+        const elapsedTime = Date.now() - startTime;
+        const remainingTime = Math.max(0, 1500 - elapsedTime);
+        
+        setTimeout(() => {
+            displayJobs(allJobs);
+        }, remainingTime);
     } catch (error) {
         console.error('Error loading jobs:', error);
         document.getElementById('jobsContainer').innerHTML = '<p>Unable to load jobs. Please make sure the server is running.</p>';
