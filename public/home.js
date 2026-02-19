@@ -132,7 +132,8 @@ async function loadJobs() {
 
 function showShimmerLoading() {
     const container = document.getElementById('jobsContainer');
-    const shimmerCards = Array(6).fill(0).map(() => `
+    // Show 8 shimmer cards to fill the grid nicely
+    const shimmerCards = Array(8).fill(0).map(() => `
         <div class="shimmer-card">
             <div class="shimmer-header">
                 <div class="shimmer-logo"></div>
