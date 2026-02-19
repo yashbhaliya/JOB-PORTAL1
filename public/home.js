@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function setActiveButton(activeBtn) {
-    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.filter-btn, .all-btn, .urgent-btn, .featured-btn').forEach(btn => btn.classList.remove('active'));
     activeBtn.classList.add('active');
 }
 let allJobs = [];
