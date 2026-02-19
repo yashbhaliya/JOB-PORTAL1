@@ -12,12 +12,15 @@ exports.updateProfile = async (req, res) => {
     const user = await User.findByIdAndUpdate(
       userId,
       updateData,
-      { new: true, runValidators: false }
+      { new: true, runValidators: false, upsert: false }
     ).select('-password -verificationToken -resetPasswordToken');
 
     if (!user) {
-      console.log('User not found');
-      return res.status(404).json({ message: 'User not found' });
+      console.log('User not found, checking if user exists...');
+      const existingUser = await User.findById(userId);
+      if (!existingUser) {
+        return res.status(404).json({ message: 'User not found. Please login again.' });
+      }
     }
     
     console.log('Updated user:', JSON.stringify(user, null, 2));

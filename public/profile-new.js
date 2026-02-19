@@ -67,7 +67,13 @@ async function saveProfileToMongoDB() {
                 window.location.href = 'home.html';
                 return null;
             }
-            throw new Error('Failed to save profile');
+            if (response.status === 404) {
+                alert('User account not found. Please login again.');
+                localStorage.clear();
+                window.location.href = 'home.html';
+                return null;
+            }
+            throw new Error(errorData.message || 'Failed to save profile');
         }
         const result = await response.json();
         console.log('Save successful:', result);
