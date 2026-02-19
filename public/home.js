@@ -197,12 +197,16 @@ function generateShimmerCards() {
 
 function displayJobs(jobs) {
     currentFilteredJobs = jobs;
-    displayAllJobs();
+    currentPage = 1;
+    displayJobsPage();
+    setupPagination();
 }
 
-function displayAllJobs() {
+function displayJobsPage() {
     const container = document.getElementById('jobsContainer');
-    const jobsToShow = currentFilteredJobs;
+    const startIndex = (currentPage - 1) * jobsPerPage;
+    const endIndex = startIndex + jobsPerPage;
+    const jobsToShow = currentFilteredJobs.slice(startIndex, endIndex);
 
     if (jobsToShow.length === 0) {
         container.innerHTML = `
@@ -257,6 +261,47 @@ function displayAllJobs() {
             </div>
         `;
     }).join('');
+}
+
+function setupPagination() {
+    const totalPages = Math.ceil(currentFilteredJobs.length / jobsPerPage);
+    const paginationContainer = document.getElementById('pagination');
+    
+    if (totalPages < 1 || currentFilteredJobs.length === 0) {
+        paginationContainer.innerHTML = '';
+        return;
+    }
+    
+    let paginationHTML = '';
+    
+    paginationHTML += `<button onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>Previous</button>`;
+    
+    for (let i = 1; i <= totalPages; i++) {
+        if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
+            paginationHTML += `<button onclick="changePage(${i})" ${i === currentPage ? 'class="active"' : ''}>${i}</button>`;
+        } else if (i === currentPage - 2 || i === currentPage + 2) {
+            paginationHTML += '<span>...</span>';
+        }
+    }
+    
+    paginationHTML += `<button onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>Next</button>`;
+    
+    const startItem = (currentPage - 1) * jobsPerPage + 1;
+    const endItem = Math.min(currentPage * jobsPerPage, currentFilteredJobs.length);
+    paginationHTML += `<div class="page-info">Showing ${startItem}-${endItem} of ${currentFilteredJobs.length} jobs</div>`;
+    
+    paginationContainer.innerHTML = paginationHTML;
+}
+
+function changePage(page) {
+    const totalPages = Math.ceil(currentFilteredJobs.length / jobsPerPage);
+    if (page < 1 || page > totalPages) return;
+    
+    currentPage = page;
+    displayJobsPage();
+    setupPagination();
+    
+    document.getElementById('jobsContainer').scrollIntoView({ behavior: 'smooth' });
 }
 
 function searchJobs(query) {
