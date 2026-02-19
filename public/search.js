@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 async function loadJobs() {
     try {
-        const response = await fetch('http://localhost:5000/api/jobs');
+        const response = await fetch(`${API_URL}/api/jobs`);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -146,7 +146,7 @@ async function loadJobs() {
         }
     } catch (error) {
         console.error('Error loading jobs:', error);
-        document.getElementById('jobsContainer').innerHTML = '<p>Unable to load jobs. Please make sure the server is running on port 5000.</p>';
+        document.getElementById('jobsContainer').innerHTML = '<p>Unable to load jobs. Please try again later.</p>';
     }
 }
 
