@@ -12,7 +12,7 @@ const experienceYearsInput = document.getElementById('experienceYears');
 // 1. Fetch from MongoDB
 async function fetchJobs() {
     try {
-        const res = await fetch('http://localhost:5000/api/jobs');
+        const res = await fetch(`${API_URL}/api/jobs`);
         jobs = await res.json();
         localStorage.setItem('jobPortalJobs', JSON.stringify(jobs));
         renderJobs();
@@ -114,11 +114,11 @@ jobForm.addEventListener('submit', async function (e) {
     }
 
     try {
-        let url = 'http://localhost:5000/api/jobs';
+        let url = `${API_URL}/api/jobs`;
         let method = 'POST';
 
         if (editingJobId) {
-            url = `http://localhost:5000/api/jobs/${editingJobId}`;
+            url = `${API_URL}/api/jobs/${editingJobId}`;
             method = 'PUT';
         }
 
@@ -189,7 +189,7 @@ document.querySelector('.jobs').addEventListener('click', async function (e) {
     } else if (target.classList.contains('btn-delete')) {
         if (confirm('Are you sure you want to delete this job?')) {
             try {
-                await fetch(`http://localhost:5000/api/jobs/${jobId}`, { method: 'DELETE' });
+                await fetch(`${API_URL}/api/jobs/${jobId}`, { method: 'DELETE' });
                 showNotification('Job deleted successfully!', 'success');
                 fetchJobs();
             } catch (err) {
