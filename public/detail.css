@@ -657,3 +657,74 @@
         display: none;
     }
 }
+
+/* Shimmer Animation */
+@keyframes shimmer {
+  0% {
+    background-position: -500px 0;
+  }
+  100% {
+    background-position: 500px 0;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(
+    to right,
+    #eeeeee 8%,
+    #dddddd 18%,
+    #eeeeee 33%
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 1.5s infinite linear;
+  border-radius: 6px;
+}
+
+.shimmer-line {
+  height: 14px;
+  margin-bottom: 10px;
+}
+
+.shimmer-title {
+  height: 28px;
+  width: 60%;
+  margin-bottom: 8px;
+}
+
+.shimmer-small {
+  height: 16px;
+  width: 40%;
+  margin-bottom: 8px;
+}
+
+.shimmer-btn {
+  height: 44px;
+  width: 120px;
+  margin-top: 15px;
+  border-radius: 8px;
+}
+
+.shimmer-date {
+  height: 28px;
+  width: 40px;
+  margin-bottom: 4px;
+  border-radius: 10px;
+}
+
+.shimmer-month {
+  height: 15px;
+  width: 35px;
+  border-radius: 4px;
+}
+
+.shimmer-skill {
+  height: 36px;
+  width: 80px;
+  border-radius: 20px;
+}
+
+.company-logo.shimmer {
+  width: 80px;
+  height: 80px;
+  border-radius: 15px;
+}

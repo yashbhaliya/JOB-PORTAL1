@@ -76,23 +76,32 @@
         <div id="jobContainer" class="container">
             <div class="job-header">
                 <div class="company-info">
-                    <img id="companyLogo" src="" alt="Company Logo" class="company-logo">
+                    <div class="shimmer company-logo" id="companyLogoShimmer"></div>
+                    <img id="companyLogo" src="" alt="Company Logo" class="company-logo" style="display:none;">
                     <div>
-                        <h1 id="jobTitle">Job Title</h1>
-                        <p id="companyName" class="company">Company Name</p>
-                        <button class="apply-btn">Apply Now</button>
+                        <div class="shimmer shimmer-title" id="jobTitleShimmer"></div>
+                        <h1 id="jobTitle" style="display:none;">Job Title</h1>
+                        <div class="shimmer shimmer-small" id="companyNameShimmer"></div>
+                        <p id="companyName" class="company" style="display:none;">Company Name</p>
+                        <div class="shimmer shimmer-btn" id="applyBtnShimmer"></div>
+                        <button class="apply-btn" style="display:none;">Apply Now</button>
                     </div>
                 </div>
                 <div class="job-badges">
-                    <span id="featuredBadge" class="badge featured"><img src="/JOB2-main/img/features.png" alt="Featured" class="star-icon"> Featured</span>
-                    <span id="urgentBadge" class="badge urgent"><img src="/JOB2-main/img/urgent.png" alt="Urgent" class="star-icon"> Urgent</span>
+                    <span id="featuredBadge" class="badge featured" style="display:none;"><img src="/JOB2-main/img/features.png" alt="Featured" class="star-icon"> Featured</span>
+                    <span id="urgentBadge" class="badge urgent" style="display:none;"><img src="/JOB2-main/img/urgent.png" alt="Urgent" class="star-icon"> Urgent</span>
                 </div>
             </div>
 
             <div class="job-content">
                 <div class="job-description">
                     <h3>Job Overview</h3>
-                    <div id="jobDescription" class="description-content">
+                    <div id="jobDescriptionShimmer">
+                        <div class="shimmer shimmer-line"></div>
+                        <div class="shimmer shimmer-line"></div>
+                        <div class="shimmer shimmer-line" style="width:80%;"></div>
+                    </div>
+                    <div id="jobDescription" class="description-content" style="display:none;">
                         <p>Loading...</p>
                     </div>
                 </div>
@@ -100,23 +109,28 @@
                 <div class="job-info">
                     <div class="info-item">
                         <strong>Category:</strong>
-                        <span id="category" class="clickable-category">-</span>
+                        <div class="shimmer shimmer-small" id="categoryShimmer"></div>
+                        <span id="category" class="clickable-category" style="display:none;">-</span>
                     </div>
                     <div class="info-item">
                         <strong>Salary:</strong>
-                        <span id="salary">-</span>
+                        <div class="shimmer shimmer-small" id="salaryShimmer"></div>
+                        <span id="salary" style="display:none;">-</span>
                     </div>
                     <div class="info-item">
                         <strong>Experience:</strong>
-                        <span id="experience">-</span>
+                        <div class="shimmer shimmer-small" id="experienceShimmer"></div>
+                        <span id="experience" style="display:none;">-</span>
                     </div>
                     <div class="info-item">
                         <strong>Employment Type:</strong>
-                        <span id="employmentType">-</span>
+                        <div class="shimmer shimmer-small" id="employmentTypeShimmer"></div>
+                        <span id="employmentType" style="display:none;">-</span>
                     </div>
                     <div class="info-item">
                         <strong>Location:</strong>
-                        <span id="location">-</span>
+                        <div class="shimmer shimmer-small" id="locationShimmer"></div>
+                        <span id="location" style="display:none;">-</span>
                     </div>
                 </div>
 
@@ -125,12 +139,15 @@
 
                     <div class="deadline-card">
                         <div class="date-box">
-                            <span class="date-number" id="dateNumber">-</span>
-                            <span class="date-month" id="dateMonth">-</span>
+                            <div class="shimmer shimmer-date" id="dateNumberShimmer"></div>
+                            <span class="date-number" id="dateNumber" style="display:none;">-</span>
+                            <div class="shimmer shimmer-month" id="dateMonthShimmer"></div>
+                            <span class="date-month" id="dateMonth" style="display:none;">-</span>
                         </div>
 
                         <div class="deadline-info">
-                            <p class="deadline-date" id="deadlineDate">-</p>
+                            <div class="shimmer shimmer-small" id="deadlineDateShimmer"></div>
+                            <p class="deadline-date" id="deadlineDate" style="display:none;">-</p>
                             <p class="deadline-text">Application Deadline</p>
                         </div>
                     </div>
@@ -138,7 +155,13 @@
 
                 <div class="job-skills">
                     <h3>Required Skills</h3>
-                    <div id="skillsList" class="skills-list">
+                    <div id="skillsListShimmer" class="skills-list">
+                        <div class="shimmer shimmer-skill"></div>
+                        <div class="shimmer shimmer-skill"></div>
+                        <div class="shimmer shimmer-skill"></div>
+                        <div class="shimmer shimmer-skill"></div>
+                    </div>
+                    <div id="skillsList" class="skills-list" style="display:none;">
                         <!-- Skills will be added here -->
                     </div>
                 </div>
@@ -204,6 +227,6 @@
         </div>
     </footer>
     <script src="config.js"></script>
-    <script src="detail.js?v=3"></script>
+    <script src="detail.js?v=4"></script>
 </body>
 </html>

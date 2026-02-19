@@ -119,12 +119,18 @@ function showError(message) {
 
 // Display job details on the page
 function displayJobDetails(job) {
+    // Hide all shimmer elements
+    document.querySelectorAll('.shimmer').forEach(el => el.style.display = 'none');
+    
     // Update page title
     document.title = `${job.title} - ${job.companyName} | Job-Portal`;
     
     // Update job header
     document.getElementById('jobTitle').textContent = job.title;
+    document.getElementById('jobTitle').style.display = 'block';
     document.getElementById('companyName').textContent = job.companyName;
+    document.getElementById('companyName').style.display = 'block';
+    document.querySelector('.apply-btn').style.display = 'block';
     
     // Update company logo
     const logoElement = document.getElementById('companyLogo');
@@ -149,6 +155,7 @@ function displayJobDetails(job) {
     
     // Update job information
     document.getElementById('category').textContent = job.category || 'Not specified';
+    document.getElementById('category').style.display = 'inline';
     
     // Make category clickable
     const categoryElement = document.getElementById('category');
@@ -162,15 +169,18 @@ function displayJobDetails(job) {
         `$${job.minSalary} - $${job.maxSalary}` : 
         'Salary not specified';
     document.getElementById('salary').textContent = salary;
+    document.getElementById('salary').style.display = 'inline';
     
     const experience = job.experience === 'freshman' ? 'Fresher' : job.experience || 'Not specified';
     const experienceYears = job.years ? ` (${job.years} years)` : '';
     document.getElementById('experience').textContent = experience + experienceYears;
+    document.getElementById('experience').style.display = 'inline';
     
     const employmentType = job.employmentTypes && job.employmentTypes.length > 0 ? 
         job.employmentTypes.join(', ') : 
         'Not specified';
     document.getElementById('employmentType').textContent = employmentType;
+    document.getElementById('employmentType').style.display = 'inline';
     
     // Make employment type clickable
     const employmentTypeElement = document.getElementById('employmentType');
@@ -187,6 +197,7 @@ function displayJobDetails(job) {
     }
     
     document.getElementById('location').textContent = job.location || 'Not specified';
+    document.getElementById('location').style.display = 'inline';
     
     // Update deadline card
     if (job.expiryDate) {
@@ -199,8 +210,11 @@ function displayJobDetails(job) {
         const fullDate = `${day} ${month} ${year}`;
         
         document.getElementById('dateNumber').textContent = dateNumber;
+        document.getElementById('dateNumber').style.display = 'block';
         document.getElementById('dateMonth').textContent = dateMonth;
+        document.getElementById('dateMonth').style.display = 'block';
         document.getElementById('deadlineDate').textContent = fullDate;
+        document.getElementById('deadlineDate').style.display = 'block';
     }
     
     // Update job description
@@ -210,6 +224,7 @@ function displayJobDetails(job) {
     } else {
         descriptionElement.innerHTML = '<p>No description provided.</p>';
     }
+    descriptionElement.style.display = 'block';
     
     // Update skills
     const skillsList = document.getElementById('skillsList');
@@ -220,6 +235,7 @@ function displayJobDetails(job) {
     } else {
         skillsList.innerHTML = '<p>No specific skills listed.</p>';
     }
+    skillsList.style.display = 'flex';
 }
 
 // Get category parameter for URL
