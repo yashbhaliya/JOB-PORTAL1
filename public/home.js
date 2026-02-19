@@ -94,9 +94,9 @@ document.addEventListener('DOMContentLoaded', function () {
     loadJobs();
 
     // Filter buttons functionality
-    const allBtn = document.querySelector('.hero-btn.all-btn');
-    const urgentBtn = document.querySelector('.hero-btn.urgent-btn');
-    const featuredBtn = document.querySelector('.hero-btn.featured-btn');
+    const allBtn = document.querySelector('.all-btn');
+    const urgentBtn = document.querySelector('.urgent-btn');
+    const featuredBtn = document.querySelector('.featured-btn');
 
     if (allBtn) {
         allBtn.addEventListener('click', () => {
@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function setActiveButton(activeBtn) {
-    document.querySelectorAll('.hero-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
     activeBtn.classList.add('active');
 }
 let allJobs = [];
