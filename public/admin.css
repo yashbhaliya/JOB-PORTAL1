@@ -118,7 +118,7 @@ body {
 /* ================= ADD JOB BUTTON ================= */
 .add-btn {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     padding: 20px 30px;
 }
 
@@ -131,13 +131,11 @@ body {
     font-weight: 600;
     border-radius: 50px;
     cursor: pointer;
-    /* box-shadow: 0 8px 25px rgba(238, 90, 36, 0.4); */
     transition: all 0.3s cubic-bezier(0.3, 0, 0.2, 1);
 }
 
 #addJobBtn:hover {
     transform: translateY(-2px);
-    /* box-shadow: 0 12px 35px rgba(238, 90, 36, 0.5); */
 }
 
 /* ================= MAIN ================= */
