@@ -142,24 +142,7 @@ async function loadJobs() {
 }
 
 function showShimmerLoading() {
-    const container = document.getElementById('jobsContainer');
-    // Show 8 shimmer cards to fill the grid nicely
-    const shimmerCards = Array(8).fill(0).map(() => `
-        <div class="shimmer-card">
-            <div class="shimmer-header">
-                <div class="shimmer-logo"></div>
-                <div>
-                    <div class="shimmer-title"></div>
-                    <div class="shimmer-company"></div>
-                </div>
-            </div>
-            <div class="shimmer-line"></div>
-            <div class="shimmer-line"></div>
-            <div class="shimmer-line"></div>
-            <div class="shimmer-line"></div>
-        </div>
-    `).join('');
-    container.innerHTML = shimmerCards;
+    // Shimmer cards are already in HTML, no need to regenerate
 }
 
 function displayJobs(jobs) {
