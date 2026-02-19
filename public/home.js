@@ -129,7 +129,7 @@ async function loadJobs() {
         
         // Calculate remaining time to show shimmer
         const elapsedTime = Date.now() - startTime;
-        const remainingTime = Math.max(0, 800 - elapsedTime);
+        const remainingTime = Math.max(0, 1500 - elapsedTime);
         
         // Wait for remaining time before showing jobs
         setTimeout(() => {
