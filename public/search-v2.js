@@ -121,6 +121,16 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 async function loadJobs() {
+    const container = document.getElementById('jobsContainer');
+    
+    // Show shimmer cards
+    container.innerHTML = `
+        <div class="job-card"><div class="shimmer shimmer-title"></div><div class="shimmer shimmer-small"></div><div class="shimmer shimmer-line"></div><div class="shimmer shimmer-line"></div><div class="shimmer shimmer-line"></div><div class="shimmer shimmer-line"></div><div class="shimmer shimmer-line"></div></div>
+        <div class="job-card"><div class="shimmer shimmer-title"></div><div class="shimmer shimmer-small"></div><div class="shimmer shimmer-line"></div><div class="shimmer shimmer-line"></div><div class="shimmer shimmer-line"></div><div class="shimmer shimmer-line"></div><div class="shimmer shimmer-line"></div></div>
+        <div class="job-card"><div class="shimmer shimmer-title"></div><div class="shimmer shimmer-small"></div><div class="shimmer shimmer-line"></div><div class="shimmer shimmer-line"></div><div class="shimmer shimmer-line"></div><div class="shimmer shimmer-line"></div><div class="shimmer shimmer-line"></div></div>
+        <div class="job-card"><div class="shimmer shimmer-title"></div><div class="shimmer shimmer-small"></div><div class="shimmer shimmer-line"></div><div class="shimmer shimmer-line"></div><div class="shimmer shimmer-line"></div><div class="shimmer shimmer-line"></div><div class="shimmer shimmer-line"></div></div>
+    `;
+    
     try {
         const response = await fetch(`${API_URL}/api/jobs`);
         if (!response.ok) {
