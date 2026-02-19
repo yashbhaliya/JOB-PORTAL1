@@ -102,9 +102,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     allBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-            console.log('All button clicked');
+            console.log('All button clicked - showing urgent + featured jobs');
             setActiveButton(btn);
-            displayJobs(allJobs);
+            const urgentAndFeatured = allJobs.filter(job => job.urgent || job.featured);
+            console.log('Found urgent + featured jobs:', urgentAndFeatured.length);
+            displayJobs(urgentAndFeatured);
         });
     });
 
@@ -168,7 +170,8 @@ async function loadJobs() {
         const remainingTime = Math.max(0, 1500 - elapsedTime);
         
         setTimeout(() => {
-            displayJobs(allJobs);
+            const urgentAndFeatured = allJobs.filter(job => job.urgent || job.featured);
+            displayJobs(urgentAndFeatured);
         }, remainingTime);
     } catch (error) {
         console.error('Error loading jobs:', error);
