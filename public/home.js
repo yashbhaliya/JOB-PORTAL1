@@ -106,6 +106,9 @@ async function loadJobs() {
     // Show shimmer loading
     showShimmerLoading();
     
+    // Ensure shimmer shows for at least 800ms for better UX
+    const startTime = Date.now();
+    
     try {
         const response = await fetch(`${API_URL}/api/jobs`, {
             method: 'GET',
@@ -123,10 +126,18 @@ async function loadJobs() {
         const today = new Date();
         today.setHours(0, 0, 0, 0);
         allJobs = allJobs.filter(job => !job.expiryDate || new Date(job.expiryDate) >= today);
-        displayJobs(allJobs);
+        
+        // Calculate remaining time to show shimmer
+        const elapsedTime = Date.now() - startTime;
+        const remainingTime = Math.max(0, 800 - elapsedTime);
+        
+        // Wait for remaining time before showing jobs
+        setTimeout(() => {
+            displayJobs(allJobs);
+        }, remainingTime);
     } catch (error) {
         console.error('Error loading jobs:', error);
-        document.getElementById('jobsContainer').innerHTML = '<p>Unable to load jobs. Please make sure the server is running on port 5000.</p>';
+        document.getElementById('jobsContainer').innerHTML = '<p>Unable to load jobs. Please make sure the server is running.</p>';
     }
 }
 
