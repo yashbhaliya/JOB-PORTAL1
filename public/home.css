@@ -1536,8 +1536,13 @@ i
 
     /* Pagination */
     .pagination {
-        flex-wrap: wrap;
-        gap: 8px;
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .pagination .page-info {
+        order: -1;
+        margin: 0;
     }
 
     .pagination button {
