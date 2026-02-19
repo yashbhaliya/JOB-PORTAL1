@@ -550,7 +550,33 @@
 .job-p {
     text-align: center;
     color: #6b7280;
+    margin-bottom: 20px;
+}
+
+.filter-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
     margin-bottom: 40px;
+}
+
+.filter-btn {
+    padding: 12px 24px;
+    border-radius: 25px;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: #0A223F;
+    color: white;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background: white;
+    color: #0A223F;
+    border: 1px solid #0A223F;
 }
 
 .jobs-grid {
@@ -1454,15 +1480,12 @@ i
         display: none;
     }
 
-    .hero-buttons {
-        position: static;
-        transform: none;
-        margin-top: 25px;
+    .filter-buttons {
         flex-wrap: wrap;
         gap: 10px;
     }
 
-    .hero-btn {
+    .filter-btn {
         flex: 1;
         min-width: 120px;
         padding: 10px 20px;
@@ -1557,12 +1580,12 @@ i
         font-size: 14px;
     }
 
-    .hero-buttons {
+    .filter-buttons {
         flex-direction: column;
         width: 100%;
     }
 
-    .hero-btn {
+    .filter-btn {
         width: 100%;
         min-width: auto;
     }

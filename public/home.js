@@ -93,9 +93,39 @@ document.addEventListener('DOMContentLoaded', function () {
     // Load jobs when page loads
     loadJobs();
 
+    // Filter buttons functionality
+    const allBtn = document.querySelector('.all-btn');
+    const urgentBtn = document.querySelector('.urgent-btn');
+    const featuredBtn = document.querySelector('.featured-btn');
 
+    if (allBtn) {
+        allBtn.addEventListener('click', () => {
+            setActiveButton(allBtn);
+            displayJobs(allJobs);
+        });
+    }
 
+    if (urgentBtn) {
+        urgentBtn.addEventListener('click', () => {
+            setActiveButton(urgentBtn);
+            const urgentJobs = allJobs.filter(job => job.urgent);
+            displayJobs(urgentJobs);
+        });
+    }
+
+    if (featuredBtn) {
+        featuredBtn.addEventListener('click', () => {
+            setActiveButton(featuredBtn);
+            const featuredJobs = allJobs.filter(job => job.featured);
+            displayJobs(featuredJobs);
+        });
+    }
 });
+
+function setActiveButton(activeBtn) {
+    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+    activeBtn.classList.add('active');
+}
 let allJobs = [];
 let currentPage = 1;
 const jobsPerPage = 8;
