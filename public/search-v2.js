@@ -110,14 +110,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-    
-    const urlParams = new URLSearchParams(window.location.search);
-    const searchQuery = urlParams.get('search');
-    if (searchQuery) {
-        if (mainSearchInput) mainSearchInput.value = searchQuery;
-        if (headerSearchInput) headerSearchInput.value = searchQuery;
-        searchJobs(searchQuery);
-    }
 });
 
 async function loadJobs() {
@@ -141,9 +133,10 @@ async function loadJobs() {
         
         const urlParams = new URLSearchParams(window.location.search);
         const searchQuery = urlParams.get('search');
+        const mainSearchInput = document.getElementById('mainSearchInput');
+        const headerSearchInput = document.getElementById('searchInput');
+        
         if (searchQuery) {
-            const mainSearchInput = document.getElementById('mainSearchInput');
-            const headerSearchInput = document.getElementById('searchInput');
             if (mainSearchInput) mainSearchInput.value = searchQuery;
             if (headerSearchInput) headerSearchInput.value = searchQuery;
             searchJobs(searchQuery);
@@ -152,7 +145,7 @@ async function loadJobs() {
         }
     } catch (error) {
         console.error('Error loading jobs:', error);
-        document.getElementById('jobsContainer').innerHTML = '<p>Unable to load jobs. Please try again later.</p>';
+        container.innerHTML = '<p>Unable to load jobs. Please try again later.</p>';
     }
 }
 
