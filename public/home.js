@@ -91,6 +91,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Load jobs when page loads
+    const container = document.getElementById('jobsContainer');
+    container.innerHTML = generateShimmerCards();
     loadJobs();
 
 
@@ -103,10 +105,7 @@ let currentFilteredJobs = [];
 
 // Fetch and display jobs from MongoDB
 async function loadJobs() {
-    // Show shimmer loading
-    showShimmerLoading();
-    
-    // Ensure shimmer shows for at least 800ms for better UX
+    const container = document.getElementById('jobsContainer');
     const startTime = Date.now();
     
     try {
@@ -122,27 +121,36 @@ async function loadJobs() {
         }
 
         allJobs = await response.json();
-        // Filter out expired jobs (only previous days, not today)
         const today = new Date();
         today.setHours(0, 0, 0, 0);
         allJobs = allJobs.filter(job => !job.expiryDate || new Date(job.expiryDate) >= today);
         
-        // Calculate remaining time to show shimmer
         const elapsedTime = Date.now() - startTime;
         const remainingTime = Math.max(0, 1500 - elapsedTime);
         
-        // Wait for remaining time before showing jobs
         setTimeout(() => {
             displayJobs(allJobs);
         }, remainingTime);
     } catch (error) {
         console.error('Error loading jobs:', error);
-        document.getElementById('jobsContainer').innerHTML = '<p>Unable to load jobs. Please make sure the server is running.</p>';
+        container.innerHTML = '<p>Unable to load jobs. Please make sure the server is running.</p>';
     }
 }
 
-function showShimmerLoading() {
-    // Shimmer cards are already in HTML, no need to regenerate
+function generateShimmerCards() {
+    let shimmerHTML = '';
+    for (let i = 0; i < 8; i++) {
+        shimmerHTML += `
+            <div class="job-card">
+                <div class="shimmer shimmer-title"></div>
+                <div class="shimmer shimmer-small"></div>
+                <div class="shimmer shimmer-line"></div>
+                <div class="shimmer shimmer-line"></div>
+                <div class="shimmer shimmer-line"></div>
+            </div>
+        `;
+    }
+    return shimmerHTML;
 }
 
 function displayJobs(jobs) {
