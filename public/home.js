@@ -98,8 +98,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const urgentBtns = document.querySelectorAll('.urgent-btn');
     const featuredBtns = document.querySelectorAll('.featured-btn');
 
+    console.log('Found buttons:', { all: allBtns.length, urgent: urgentBtns.length, featured: featuredBtns.length });
+
     allBtns.forEach(btn => {
         btn.addEventListener('click', () => {
+            console.log('All button clicked');
             setActiveButton(btn);
             displayJobs(allJobs);
         });
@@ -107,16 +110,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
     urgentBtns.forEach(btn => {
         btn.addEventListener('click', () => {
+            console.log('Urgent button clicked, filtering', allJobs.length, 'jobs');
             setActiveButton(btn);
             const urgentJobs = allJobs.filter(job => job.urgent);
+            console.log('Found urgent jobs:', urgentJobs.length);
             displayJobs(urgentJobs);
         });
     });
 
     featuredBtns.forEach(btn => {
         btn.addEventListener('click', () => {
+            console.log('Featured button clicked, filtering', allJobs.length, 'jobs');
             setActiveButton(btn);
             const featuredJobs = allJobs.filter(job => job.featured);
+            console.log('Found featured jobs:', featuredJobs.length);
             displayJobs(featuredJobs);
         });
     });
