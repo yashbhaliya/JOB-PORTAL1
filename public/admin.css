@@ -118,7 +118,7 @@ body {
 /* ================= ADD JOB BUTTON ================= */
 .add-btn {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     padding: 20px 30px;
 }
 
