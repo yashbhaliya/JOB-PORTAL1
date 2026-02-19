@@ -124,7 +124,7 @@ async function loadJobs() {
         allJobs = allJobs.filter(job => !job.expiryDate || new Date(job.expiryDate) >= today);
         
         const elapsedTime = Date.now() - startTime;
-        const remainingTime = Math.max(0, 1500 - elapsedTime);
+        const remainingTime = Math.max(0, 2500 - elapsedTime);
         
         setTimeout(() => {
             displayJobs(allJobs);
