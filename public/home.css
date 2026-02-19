@@ -1536,12 +1536,14 @@ i
 
     /* Pagination */
     .pagination {
-        flex-direction: column;
-        gap: 15px;
+        flex-wrap: wrap;
+        gap: 10px;
     }
     
     .pagination .page-info {
         order: -1;
+        width: 100%;
+        text-align: center;
         margin: 0;
     }
 
