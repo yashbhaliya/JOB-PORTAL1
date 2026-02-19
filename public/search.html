@@ -127,7 +127,17 @@
             </div>
         </div>
     </footer>
+    <script>
+        // Force verify API_URL is loaded
+        console.log('Loading search page - API_URL should be:', window.location.origin);
+    </script>
     <script src="config.js?t=1738074000"></script>
     <script src="search-v2.js?t=1738074000"></script>
+    <script>
+        // Verify after load
+        window.addEventListener('load', function() {
+            console.log('API_URL loaded as:', typeof API_URL !== 'undefined' ? API_URL : 'UNDEFINED!');
+        });
+    </script>
 </body>
 </html>
