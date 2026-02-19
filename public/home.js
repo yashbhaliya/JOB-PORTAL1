@@ -91,8 +91,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Load jobs when page loads
-    const container = document.getElementById('jobsContainer');
-    container.innerHTML = generateShimmerCards();
     loadJobs();
 
 
