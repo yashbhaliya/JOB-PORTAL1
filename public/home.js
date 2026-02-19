@@ -93,38 +93,43 @@ document.addEventListener('DOMContentLoaded', function () {
     // Load jobs when page loads
     loadJobs();
 
-    // Filter buttons functionality
-    const allBtn = document.querySelector('.all-btn');
-    const urgentBtn = document.querySelector('.urgent-btn');
-    const featuredBtn = document.querySelector('.featured-btn');
+    // Filter buttons functionality - handle both hero and main section buttons
+    const allBtns = document.querySelectorAll('.all-btn');
+    const urgentBtns = document.querySelectorAll('.urgent-btn');
+    const featuredBtns = document.querySelectorAll('.featured-btn');
 
-    if (allBtn) {
-        allBtn.addEventListener('click', () => {
-            setActiveButton(allBtn);
+    allBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            setActiveButton(btn);
             displayJobs(allJobs);
         });
-    }
+    });
 
-    if (urgentBtn) {
-        urgentBtn.addEventListener('click', () => {
-            setActiveButton(urgentBtn);
+    urgentBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            setActiveButton(btn);
             const urgentJobs = allJobs.filter(job => job.urgent);
             displayJobs(urgentJobs);
         });
-    }
+    });
 
-    if (featuredBtn) {
-        featuredBtn.addEventListener('click', () => {
-            setActiveButton(featuredBtn);
+    featuredBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            setActiveButton(btn);
             const featuredJobs = allJobs.filter(job => job.featured);
             displayJobs(featuredJobs);
         });
-    }
+    });
 });
 
 function setActiveButton(activeBtn) {
+    // Get the class name of clicked button (all-btn, urgent-btn, or featured-btn)
+    const btnClass = activeBtn.classList.contains('all-btn') ? 'all-btn' : 
+                     activeBtn.classList.contains('urgent-btn') ? 'urgent-btn' : 'featured-btn';
+    
+    // Remove active from all buttons and add to matching ones
     document.querySelectorAll('.all-btn, .urgent-btn, .featured-btn').forEach(btn => btn.classList.remove('active'));
-    activeBtn.classList.add('active');
+    document.querySelectorAll(`.${btnClass}`).forEach(btn => btn.classList.add('active'));
 }
 let allJobs = [];
 let currentPage = 1;
