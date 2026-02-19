@@ -405,7 +405,8 @@ function setupPagination() {
     const totalPages = Math.ceil(currentFilteredJobs.length / jobsPerPage);
     const paginationContainer = document.getElementById('pagination');
     
-    if (totalPages <= 1) {
+    // Always show pagination, even with 1 page
+    if (totalPages < 1 || currentFilteredJobs.length === 0) {
         paginationContainer.innerHTML = '';
         return;
     }
