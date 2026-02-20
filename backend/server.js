@@ -147,8 +147,17 @@ app.delete('/api/jobs/:id', async (req, res) => {
 /* ======================
    FALLBACK (Frontend)
 ====================== */
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok', message: 'Server is running' });
+});
+
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'public', 'home.html'));
+  try {
+    res.sendFile(path.join(__dirname, '..', 'public', 'home.html'));
+  } catch (err) {
+    console.error('Error serving home.html:', err);
+    res.status(500).send('Server error');
+  }
 });
 
 /* ======================
