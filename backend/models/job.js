@@ -1,4 +1,4 @@
-const mongoose = require('../config/db'); // important to import the connection
+const { mongoose } = require('../config/db'); // important to import the connection
 
 const jobSchema = new mongoose.Schema({
     title: { type: String, required: true },
