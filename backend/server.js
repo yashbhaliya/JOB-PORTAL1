@@ -52,8 +52,8 @@ app.get('/api/jobs', async (req, res) => {
     const jobs = await Job.find().sort({ createdAt: -1 });
     res.json(jobs);
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: err.message });
+    console.error('Error fetching jobs:', err);
+    res.status(500).json({ error: err.message, details: 'Database connection error' });
   }
 });
 
