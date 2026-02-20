@@ -13,15 +13,21 @@ const experienceYearsInput = document.getElementById('experienceYears');
 async function fetchJobs() {
     try {
         const res = await fetch(`${API_URL}/api/jobs`);
+        if (!res.ok) {
+            throw new Error('Server error');
+        }
         jobs = await res.json();
         localStorage.setItem('jobPortalJobs', JSON.stringify(jobs));
         renderJobs();
     } catch (err) {
         console.error('Error fetching jobs:', err);
+        showNotification('Unable to load jobs. Please make sure the server is running.', 'error');
         const cached = localStorage.getItem('jobPortalJobs');
         if (cached) {
             jobs = JSON.parse(cached);
             renderJobs();
+        } else {
+            document.querySelector('.jobs').innerHTML = '<div style="text-align:center;padding:40px;color:#666;"><h3>⚠️ Unable to load jobs</h3><p>Please make sure the server is running and try again.</p></div>';
         }
     }
 }
