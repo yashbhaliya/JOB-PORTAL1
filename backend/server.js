@@ -8,7 +8,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 
 const Job = require('./models/job');          // Job model
-require('./config/db');                       // MongoDB connection (job-portal)
+const { connectDB } = require('./config/db');  // MongoDB connection (job-portal)
 
 // 🔐 Auth routes
 const authRoutes = require('./routes/auth.routes');
@@ -49,6 +49,7 @@ app.get('/verify/:token', require('./controllers/auth.controller').verifyEmail);
 // GET all jobs
 app.get('/api/jobs', async (req, res) => {
   try {
+    await connectDB();
     const jobs = await Job.find().sort({ createdAt: -1 });
     res.json(jobs);
   } catch (err) {
